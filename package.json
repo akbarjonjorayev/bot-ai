@@ -1,13 +1,12 @@
 {
-  "name": "bot-ai",
+  "name": "telexa-ai",
   "version": "1.0.0",
-  "description": "AI from AJ for everything.",
-  "main": "boy.js",
+  "description": "Telexa - answers made simple",
+  "main": "bot.js",
   "type": "module",
   "scripts": {
     "start": "node ./bot.js",
-    "dev": "nodemon ./bot.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon ./bot.js"
   },
   "author": "Akbar <akbarjonjorayev001@gmail.com>",
   "license": "MIT",
