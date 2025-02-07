@@ -2,10 +2,10 @@ import express from 'express'
 import botData from './botData.js'
 import { handleText } from './handler/text.js'
 import { handleImage } from './handler/image.js'
-import {
-  endConversation,
-  startConversation,
-} from './conversation/conversation.js'
+import { newCommand } from './commands/new.js'
+import { startCommand } from './commands/start.js'
+import { helpCommand } from './commands/help.js'
+import { endCommand } from './commands/end.js'
 
 const { bot } = botData
 const app = express()
@@ -14,14 +14,11 @@ app.use(express.json())
 const webhookUrl = `${process.env.WEBHOOK_URL}/bot${process.env.TELEGRAM_BOT_TOKEN}`
 bot.setWebHook(webhookUrl)
 
-bot.setMyCommands([
-  { command: '/new', description: 'Talk to Telexa' },
-  { command: '/end', description: 'Enough of Telexa' },
-])
-
 // commands
-bot.onText(/\/new/, async (msg) => await startConversation(msg))
-bot.onText(/\/end/, async (msg) => await endConversation(msg))
+bot.onText(/\/new/, async (msg) => await newCommand(msg))
+bot.onText(/\/start/, async (msg) => await startCommand(msg))
+bot.onText(/\/help/, async (msg) => await helpCommand(msg))
+bot.onText(/\/end/, async (msg) => await endCommand(msg))
 
 // messages
 bot.on('message', async (msg) => {
