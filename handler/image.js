@@ -1,5 +1,6 @@
 import botData from '../botData.js'
 import { telexaImage } from '../ai.js'
+import { botSendVoice } from '../conversation/voice.js'
 
 const { bot, chat } = botData
 
@@ -30,18 +31,20 @@ export async function handleImage(msg) {
       await bot.sendMessage(chatId, aiText, { parse_mode: 'Markdown' })
     } catch (error) {
       await bot.sendMessage(chatId, aiText)
+    } finally {
+      bot.deleteMessage(chatId, thinkingMsgId)
+      await botSendVoice(chatId, aiText)
     }
 
     chat.history.push({ role: 'model', parts: aiText })
   } catch {
     chat.history = []
 
+    bot.deleteMessage(chatId, thinkingMsgId)
     await bot.sendMessage(
       chatId,
       'Telexa AI is not going to answer you anymore. Try again later.'
     )
-  } finally {
-    bot.deleteMessage(chatId, thinkingMsgId)
   }
 }
 
