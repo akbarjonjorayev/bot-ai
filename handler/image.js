@@ -12,7 +12,9 @@ export async function handleImage(msg) {
 
   try {
     const imageLink = await getMessageLink(msg)
-    const description = msg.caption ? msg?.caption : 'What in this image?'
+    const description = msg.caption
+      ? msg?.caption
+      : `This is image from ${msg.from.first_name}. You are Telexa AI. What do you see in this image?`
 
     chat.history.push({
       role: 'user',
@@ -28,7 +30,11 @@ export async function handleImage(msg) {
     }
 
     const aiText = aiRes.text()
-    await bot.sendMessage(chatId, aiText, { parse_mode: 'Markdown' })
+    try {
+      await bot.sendMessage(chatId, aiText, { parse_mode: 'Markdown' })
+    } catch {
+      await bot.sendMessage(chatId, aiText)
+    }
 
     bot.deleteMessage(chatId, pendingMsgId)
     await botSendVoice(chatId, aiText)

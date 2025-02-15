@@ -2,7 +2,7 @@ import botData from '../botData.js'
 
 export async function aiTextToImage(image, caption) {
   const model = botData.ai.getGenerativeModel({
-    model: 'models/gemini-1.5-pro',
+    model: 'models/gemini-2.0-pro-exp-02-05',
   })
   const imageResp = await fetch(image).then((res) => res.arrayBuffer())
 

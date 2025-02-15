@@ -9,9 +9,9 @@ export async function startCommand(msg) {
   })
 }
 
-function getStartMessage(mes) {
+function getStartMessage(msg) {
   return `
-Hello *${mes.from.first_name}*, welcome to *Telexa*!
+Hello *${msg.from.first_name}*, welcome to *Telexa*!
     
 For further information click /help`
 }
