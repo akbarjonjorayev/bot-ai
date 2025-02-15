@@ -6,5 +6,5 @@ export async function endCommand(msg) {
   const chatId = msg.chat.id
   chat.history = []
 
-  await bot.sendMessage(chatId, 'That was funny. See you next time 😊 /new')
+  await bot.sendMessage(chatId, 'See you next time 😊 /new')
 }
