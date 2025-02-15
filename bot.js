@@ -2,6 +2,7 @@ import express from 'express'
 import botData from './botData.js'
 import { handleText } from './handler/text.js'
 import { handleImage } from './handler/image.js'
+import { handleVoice } from './handler/voice.js'
 import { newCommand } from './commands/new.js'
 import { startCommand } from './commands/start.js'
 import { helpCommand } from './commands/help.js'
@@ -25,21 +26,14 @@ bot.on('message', async (msg) => {
   if (msg?.text) await handleText(msg)
 })
 bot.on('photo', async (msg) => await handleImage(msg))
+bot.on('voice', async (msg) => await handleVoice(msg))
 
-// errors
-bot.on(
-  'polling_error',
-  async () =>
-    await bot.sendMessage(
-      chatId,
-      'Telexa AI is not going to answer you anymore. Try again later.'
-    )
-)
+// error
 bot.on(
   'webhook_error',
-  async () =>
+  async (msg) =>
     await bot.sendMessage(
-      chatId,
+      msg.chat.id,
       'Telexa AI is not going to answer you anymore. Try again later.'
     )
 )
