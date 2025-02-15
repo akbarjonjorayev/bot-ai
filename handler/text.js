@@ -27,7 +27,11 @@ export async function handleText(msg) {
     if (aiText.length > 4096) {
       await botSendLongText(chatId, aiText)
     } else {
-      await bot.sendMessage(chatId, aiText, { parse_mode: 'Markdown' })
+      try {
+        await bot.sendMessage(chatId, aiText, { parse_mode: 'Markdown' })
+      } catch {
+        await bot.sendMessage(chatId, aiText)
+      }
     }
 
     bot.deleteMessage(chatId, pendingMsgId)

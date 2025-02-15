@@ -29,6 +29,6 @@ export async function botSendLongText(chatId, longText) {
   } catch {
     await bot.sendMessage(chatId, 'Telexa cannot send long text right now.')
   } finally {
-    await bot.deleteMessage(chatId, pendingMsgId)
+    bot.deleteMessage(chatId, pendingMsgId)
   }
 }
